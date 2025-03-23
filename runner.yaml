@@ -29,4 +29,4 @@ webform:
 
 launch:
   type: binary
-  command: /go/bin/wappalyzer --target ${selector} --disable-ssl --output output.txt --json
+  command: /go/bin/wappalyzer --target ${selector} --disable-ssl --output outputs/output.txt --json
