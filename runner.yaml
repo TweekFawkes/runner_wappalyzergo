@@ -1,0 +1,32 @@
+runner:
+  name: Website Technology Stack Detector
+  description: Technology profiling tool that identifies and reveals the complete technology stack powering any website, including frameworks, CMS platforms, analytics tools, and other web technologies.
+  version: 0.0.1
+
+build:
+  commands: |
+    echo "START: Building wappalyzergo"
+    apt-get update
+    apt-get install -y ca-certificates
+    apt-get install -y build-essential
+    apt-get install -y git
+    wget https://go.dev/dl/go1.22.6.linux-amd64.tar.gz && tar -C /usr/local -xzf go1.22.6.linux-amd64.tar.gz && rm go1.22.6.linux-amd64.tar.gz
+    ENV GOROOT=/usr/local/go
+    ENV GOPATH=/go
+    ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+    ENV GO111MODULE=on
+    ENV CGO_ENABLED=1
+    mkdir -p /go/src
+    mkdir -p /go/bin
+    mkdir -p /tmp/.tmp
+    cd /tmp/.tmp && /usr/local/go/bin/go install -v github.com/webklex/wappalyzer@main
+    echo "END: Building wappalyzergo"
+
+webform:
+  - name: selector
+    prompt: Website to Detect Technology Stack
+    type: text
+
+launch:
+  type: binary
+  command: /go/bin/wappalyzer --target ${selector} --disable-ssl --output output.txt --json
