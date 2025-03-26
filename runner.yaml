@@ -23,10 +23,10 @@ build:
     echo "END: Building wappalyzergo"
 
 webform:
-  - name: selector
-    prompt: Website to Detect Technology Stack
+  - name: url
+    prompt: URL
     type: text
 
 launch:
   type: binary
-  command: /go/bin/wappalyzer --target ${selector} --disable-ssl --output outputs/output.json --json
+  command: /go/bin/wappalyzer --target ${url} --disable-ssl --output outputs/output.json --json
